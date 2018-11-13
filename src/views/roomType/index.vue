@@ -129,7 +129,6 @@ export default {
       this.listLoading = true
       getAll().then(response => {
         this.list = response
-        console.log(this.list)
         this.listLoading = false
       })
     },
@@ -147,10 +146,10 @@ export default {
     },
     handleEdit(index, row) {
       this.$router.push({
-        path: '/roomInfo',
-        name: 'EditRoom',
+        path: '/roomType',
+        name: 'EditType',
         params: {
-          id: row.roomId
+          id: row.typeId
         }
       })
     },

@@ -77,7 +77,8 @@
   </div>
 </template>
 <script>
-import { update, withId } from '@/api/roomType'
+import { edit, getById } from '@/api/roomType'
+
 export default {
   data() {
     return {
@@ -93,21 +94,31 @@ export default {
         remark: null
       },
       loading: false,
+      typeId: null,
       windowSwitch: {
         has: 1,
         none: 0
       }
     }
   },
+  created: function() {
+    this.fetchData()
+  },
   methods: {
     fetchData() {
-      withId()
+      this.typeId = this.$route.params.id
+      if (this.typeId == null) {
+        this.onCancel()
+      }
+      getById(this.typeId).then(res => {
+        this.form1 = res
+      })
     },
     onSubmit() {
       this.$refs.form1.validate((valid) => {
         if (valid) {
           this.loading = true
-          update(this.form1).then(response => {
+          edit(this.form1).then(response => {
             if (response === 1) {
               this.$message({
                 message: '提交成功！',
@@ -139,5 +150,3 @@ export default {
 }
 </script>
 
-<style scoped>
-</style>

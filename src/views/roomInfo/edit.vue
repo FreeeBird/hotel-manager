@@ -65,82 +65,89 @@
   </div>
 </template>
 <script>
-  import { getAll } from '@/api/roomType'
-  import { add } from '@/api/roomInfo'
-  export default {
-    data() {
-      return {
-        form1: {
-          roomId: null,
-          roomNumber: null,
-          roomType: null,
-          typeId: null,
-          roomPrice: null,
-          roomDiscount: null,
-          roomStatus: null,
-          remark: null
-        },
-        loading: false,
-        typeList: null,
-        statusList: {
-          unavailable: 0,
-          available: 1,
-          occupied: 2,
-          inUse: 3
-        }
-      }
-    },
-    created: function() {
-      this.fetchData()
-    },
-    methods: {
-      fetchData() {
-        getAll().then(res => {
-          this.typeList = res
-        })
+import { getAll } from '@/api/roomType'
+import { edit, getById } from '@/api/roomInfo'
+export default {
+  data() {
+    return {
+      form1: {
+        roomId: null,
+        roomNumber: null,
+        roomType: null,
+        typeId: null,
+        roomPrice: null,
+        roomDiscount: null,
+        roomStatus: null,
+        remark: null
       },
-      idToType(val) {
-        if (val == null) return
-        this.typeList.forEach(type => {
-          if (val === type.typeId) {
-            this.form1.roomType = type.roomType
-          }
-        })
-      },
-      onSubmit() {
-        this.$refs.form1.validate((valid) => {
-          if (valid) {
-            this.loading = true
-            add(this.form1).then(response => {
-              if (response === 1) {
-                this.$message({
-                  message: '提交成功！',
-                  type: 'success'
-                })
-                this.loading = false
-                setTimeout(this.onCancel(), 20000)
-              } else {
-                this.showError()
-                this.loading = false
-              }
-            })
-          } else {
-            this.loading = false
-            return false
-          }
-        })
-      },
-      showError() {
-        this.$message({
-          message: '提交失败！',
-          type: 'error'
-        })
-      },
-      onCancel() {
-        this.$router.back()
+      loading: false,
+      typeList: null,
+      statusList: {
+        unavailable: 0,
+        available: 1,
+        occupied: 2,
+        inUse: 3
       }
     }
+  },
+  created: function() {
+    this.fetchData()
+  },
+  methods: {
+    fetchData() {
+      this.roomId = this.$route.params.id
+      if (this.roomId == null) {
+        this.onCancel()
+      }
+      getAll().then(res => {
+        this.typeList = res
+      })
+      getById(this.roomId).then(res => {
+        this.form1 = res
+      })
+    },
+    idToType(val) {
+      if (val == null) return
+      this.typeList.forEach(type => {
+        if (val === type.typeId) {
+          this.form1.roomType = type.roomType
+        }
+      })
+    },
+    onSubmit() {
+      this.$refs.form1.validate((valid) => {
+        if (valid) {
+          this.loading = true
+          edit(this.form1).then(response => {
+            if (response === 1) {
+              this.$message({
+                message: '提交成功！',
+                type: 'success'
+              })
+              this.loading = false
+              setTimeout(this.onCancel(), 20000)
+            } else {
+              this.showError()
+              this.loading = false
+            }
+          })
+        } else {
+          this.loading = false
+          return false
+        }
+      })
+    },
+    showError() {
+      this.$message({
+        message: '提交失败！',
+        type: 'error'
+      })
+    },
+    onCancel() {
+      this.$router.back()
+    }
   }
+}
 </script>
 
 <style scoped>
