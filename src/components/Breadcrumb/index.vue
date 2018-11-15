@@ -38,8 +38,8 @@ export default {
         }
       })
       const first = matched[0]
-      if (first && first.name !== 'home') {
-        matched = [{ path: '/home', meta: { title: '酒店管理系统' }}].concat(matched)
+      if (first && first.name !== '') {
+        matched = [{ path: '/', meta: { title: '酒店管理系统' }}].concat(matched)
       }
       this.levelList = matched
     }
