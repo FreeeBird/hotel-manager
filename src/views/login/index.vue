@@ -93,13 +93,15 @@ export default {
           this.$store.dispatch('Login', this.loginForm).then(() => {
             this.loading = false
             this.$router.push({ path: this.redirect || '/' })
-          }).catch(() => {
+          }).catch((err) => {
             this.loading = false
+            this.$message.error(err)
           })
         } else {
           console.log('error submit!!')
           return false
         }
+        this.loading = false
       })
     }
   }

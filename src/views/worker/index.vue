@@ -17,10 +17,10 @@
         prop="workerId"
         label="编号"/>
       <el-table-column
-        prop="workerName"
+        prop="name"
         label="姓名"/>
       <el-table-column
-        prop="userName"
+        prop="username"
         label="用户名"/>
       <el-table-column
         prop="phone"
@@ -32,15 +32,11 @@
         prop="address"
         label="地址"/>
       <el-table-column
-        label="修改时间">
+        label="修改时间|创建时间">
         <template slot-scope="scope">
           <i class="el-icon-time"/>
           <span style="margin-left: 10px">{{ scope.row.updateTime | formatDate }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="创建时间">
-        <template slot-scope="scope">
+          <br>
           <i class="el-icon-time"/>
           <span style="margin-left: 10px">{{ scope.row.createTime | formatDate }}</span>
         </template>
@@ -50,16 +46,23 @@
           <el-button
             size="mini"
             @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-          <el-button
-            size="mini"
-            type="danger"
-            @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+          <el-popover
+            v-model="scope.row.visible2"
+            placement="top"
+            width="160">
+            <p>确定删除吗？</p>
+            <div style="text-align: right; margin: 0">
+              <el-button size="mini" round @click="scope.row.visible2 = false">取消</el-button>
+              <el-button type="danger" size="mini" round @click="handleDel(scope.row)">确定</el-button>
+            </div>
+            <el-button slot="reference" :loading="scope.row.loading" size="mini" type="danger" @click="scope.row.visible2 = true">删除</el-button>
+          </el-popover>
         </template>
       </el-table-column>
     </el-table>
     <div style="padding: 14px;">
       <div class="bottom">
-        <el-button type="primary">添加操作员</el-button>
+        <el-button type="primary" @click="navigateTo('add')">添加操作员</el-button>
         <el-button type="danger">批量删除</el-button>
       </div>
     </div>
@@ -67,11 +70,12 @@
 </template>
 
 <script>
-import { getAll } from '@/api/worker'
+import { getAll, del } from '@/api/worker'
 
 export default {
   data() {
     return {
+      visible2: false,
       multipleSelection: [],
       list: null,
       listLoading: true
@@ -84,9 +88,41 @@ export default {
     fetchData() {
       this.listLoading = true
       getAll().then(response => {
-        this.list = response.data
+        this.list = response
         this.listLoading = false
       })
+    },
+    navigateTo(val) {
+      this.$router.push({ path: '/worker/' + val })
+    },
+    handleEdit(index, row) {
+      this.$router.push({
+        path: '/worker',
+        name: 'EditWorker',
+        params: {
+          id: row.workerId
+        }
+      })
+    },
+    handleDel(row) {
+      row.visible2 = false
+      row.loading = true
+      del(row.workerId).then(response => {
+        if (response === 1) {
+          this.list = null
+          this.$message({
+            message: '删除成功！',
+            type: 'success'
+          })
+        } else {
+          this.$message({
+            message: '删除失败！',
+            type: 'error'
+          })
+        }
+      })
+      row.loading = false
+      this.fetchData()
     },
     toggleSelection(rows) {
       if (rows) {

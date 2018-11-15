@@ -106,12 +106,27 @@ export const constantRouterMap = [
   {
     path: '/worker',
     component: Layout,
+    meta: { title: '操作员信息管理', icon: 'user' },
     children: [
       {
         path: '',
         name: 'Worker',
         component: () => import('@/views/worker/index'),
         meta: { title: '操作员信息管理', icon: 'user' }
+      },
+      {
+        path: 'add',
+        name: 'AddWorker',
+        hidden: true,
+        component: () => import('@/views/worker/add'),
+        meta: { title: '添加操作员' }
+      },
+      {
+        path: 'edit',
+        name: 'EditWorker',
+        hidden: true,
+        component: () => import('@/views/worker/edit'),
+        meta: { title: '编辑操作员' }
       }
     ]
   },

@@ -86,10 +86,6 @@
             </div>
             <el-button slot="reference" :loading="scope.row.loading" size="mini" type="danger" @click="scope.row.visible2 = true">删除</el-button>
           </el-popover>
-          <!--<el-button-->
-          <!--size="mini"-->
-          <!--type="danger"-->
-          <!--@click="handleDelete(scope.$index, scope.row)">删除</el-button>-->
         </template>
       </el-table-column>
     </el-table>

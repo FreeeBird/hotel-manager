@@ -24,6 +24,16 @@ export function getInfo(token, username) {
   })
 }
 
+export function getByUsername(username) {
+  return request({
+    url: URL + '/withUsername',
+    method: 'post',
+    date: {
+      username
+    }
+  })
+}
+
 export function logout() {
   return request({
     url: URL + '/logout',

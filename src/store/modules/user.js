@@ -1,12 +1,14 @@
-import { login, logout, getInfo } from '@/api/admin'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+import { login, logout, getByUsername } from '@/api/admin'
+import { getToken, removeToken } from '@/utils/auth'
+import Cookies from 'js-cookie'
 
 const user = {
   state: {
     token: getToken(),
     name: '',
+    username: '',
     avatar: '',
-    roles: []
+    role: ''
   },
 
   mutations: {
@@ -16,11 +18,14 @@ const user = {
     SET_NAME: (state, name) => {
       state.name = name
     },
+    SET_USERNAME: (state, username) => {
+      state.username = username
+    },
     SET_AVATAR: (state, avatar) => {
       state.avatar = avatar
     },
-    SET_ROLES: (state, roles) => {
-      state.roles = roles
+    SET_ROLE: (state, role) => {
+      state.roles = role
     }
   },
 
@@ -30,10 +35,11 @@ const user = {
       const username = userInfo.username.trim()
       return new Promise((resolve, reject) => {
         login(username, userInfo.password).then(response => {
-          const data = response.data
-          setToken(data)
+          const data = response
+          if (data === 0) return
+          Cookies.set('Username', username)
+          commit('SET_USERNAME', username)
           commit('SET_TOKEN', data)
-          commit('SET_NAME', userInfo.username)
           resolve()
         }).catch(error => {
           reject(error)
@@ -42,17 +48,16 @@ const user = {
     },
 
     // 获取用户信息
-    GetInfo({ commit, state }) {
+    GetInfo({ commit }, username) {
       return new Promise((resolve, reject) => {
-        getInfo(state.token, state.name).then(response => {
-          const data = response.data
-          if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
-            commit('SET_ROLES', data.roles)
+        getByUsername(username).then(response => {
+          const data = response
+          if (data.role) { // 验证返回的roles是否是一个非空数组
+            commit('SET_ROLE', data.role)
           } else {
             reject('getInfo: roles must be a non-null array !')
           }
           commit('SET_NAME', data.name)
-          commit('SET_AVATAR', data.avatar)
           resolve(response)
         }).catch(error => {
           reject(error)
