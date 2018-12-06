@@ -11,6 +11,7 @@ import '@/styles/index.scss' // global css
 import App from './App'
 import router from './router'
 import store from './store'
+import vFilter from '@/utils/myFilter'
 
 import '@/icons' // icon
 import '@/permission' // permission control
@@ -18,17 +19,10 @@ import '@/permission' // permission control
 Vue.use(ElementUI, { locale })
 
 Vue.config.productionTip = false
-Vue.filter('formatDate', function(value) {
-  var d = new Date(value)
-  var year = d.getFullYear()
-  var month = d.getMonth() + 1
-  var day = d.getDate() < 10 ? '0' + d.getDate() : '' + d.getDate()
-  // var hour = d.getHours();
-  // var minutes = d.getMinutes();
-  // var seconds = d.getSeconds();
-  // return  year+ '-' + month + '-' + day + ' ' + hour + ':' + minutes + ':' + seconds;
-  return year + '-' + month + '-' + day
-})
+for (let key in vFilter){
+  Vue.filter(key,vFilter[key])
+}
+
 
 new Vue({
   el: '#app',
