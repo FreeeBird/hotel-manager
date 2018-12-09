@@ -25,7 +25,7 @@ const user = {
       state.avatar = avatar
     },
     SET_ROLE: (state, role) => {
-      state.roles = role
+      state.role = role
     }
   },
 

@@ -15,7 +15,7 @@ export function delOrder(data) {
     url: URL + '/delete',
     method: 'post',
     data: {
-      typeId: data
+      orderId: data
     }
   })
 }

@@ -8,6 +8,7 @@ Vue.use(Router)
 
 /* Layout */
 import Layout from '../views/layout/Layout'
+import Container from '../views/layout/Container'
 
 /**
 * hidden: true                   if `hidden:true` will not show in the sidebar(default is false)
@@ -38,28 +39,15 @@ export const constantRouterMap = [
   // },
   {
     path: '/',
-    component: Layout,
+    component: Container,
     redirect: '/home',
     children: [
-      {
-        path: '',
-        name: 'Home',
-        component: () => import('@/views/home/index'),
-        meta: { title: '首页', icon: 'example' }
-      }
+      {path: '', name: 'Home', component: () => import('@/views/home/index'),},
+
     ]
   },
-  {
-    path: '/roomType',
-    component: Layout,
-    meta: { title: '房间类型管理', icon: 'nested' },
-    children: [
-      {
-        path: '',
-        name: 'RoomType',
-        meta: { title: '房间类型管理' },
-        component: () => import('@/views/roomType/index')
-      },
+  {path: '/roomType', component: Container, children: [
+      {path: '', name: 'RoomType', component: () => import('@/views/roomType/index')},
       {
         path: 'add',
         name: 'AddType',
@@ -74,13 +62,8 @@ export const constantRouterMap = [
         component: () => import('@/views/roomType/edit'),
         meta: { title: '编辑房间类型' }
       }
-    ]
-  },
-  {
-    path: '/roomInfo',
-    component: Layout,
-    meta: { title: '房间信息管理', icon: 'table' },
-    children: [
+    ]},
+  {path: '/roomInfo', component: Container, children: [
       {
         path: '',
         name: 'RoomInfo',
@@ -101,40 +84,27 @@ export const constantRouterMap = [
         component: () => import('@/views/roomInfo/edit'),
         meta: { title: '编辑房间' }
       }
-    ]
-  },
-  {
-    path: '/worker',
-    component: Layout,
-    meta: { title: '操作员信息管理', icon: 'user' },
-    children: [
+    ]},
+  {path: '/worker', component: Container, children: [
       {
         path: '',
         name: 'Worker',
         component: () => import('@/views/worker/index'),
-        meta: { title: '操作员信息管理', icon: 'user' }
       },
       {
         path: 'add',
         name: 'AddWorker',
         hidden: true,
         component: () => import('@/views/worker/add'),
-        meta: { title: '添加操作员' }
       },
       {
         path: 'edit',
         name: 'EditWorker',
         hidden: true,
         component: () => import('@/views/worker/edit'),
-        meta: { title: '编辑操作员' }
       }
-    ]
-  },
-  {
-    path: '/bookingType',
-    component: Layout,
-    meta: { title: '预订方式管理', icon: 'tree' },
-    children: [
+    ]},
+  {path: '/bookingType', component: Container, meta: { title: '预订方式管理', icon: 'tree' }, children: [
       {
         path: '',
         name: 'BookingType',
@@ -155,13 +125,8 @@ export const constantRouterMap = [
         component: () => import('@/views/bookingType/edit'),
         meta: { title: '编辑预订方式' }
       }
-    ]
-  },
-  {
-    path: '/order',
-    component: Layout,
-    meta: { title: '订单管理', icon: 'tree' },
-    children: [
+    ]},
+  {path: '/order', component: Container, meta: { title: '订单管理', icon: 'tree' }, children: [
       {
         path: '',
         name: 'Order',
@@ -182,13 +147,8 @@ export const constantRouterMap = [
         component: () => import('@/views/order/edit'),
         meta: { title: '编辑订单'}
       }
-    ]
-  },
-  {
-    path: '/user',
-    component: Layout,
-    meta: { title: '客户管理', icon: 'tree' },
-    children: [
+    ]},
+  {path: '/user', component: Container, meta: { title: '客户管理', icon: 'tree' }, children: [
       {
         path: '',
         name: 'Guest',
@@ -209,8 +169,7 @@ export const constantRouterMap = [
         component: () => import('@/views/guest/edit'),
         meta: { title: '编辑客户'}
       }
-    ]
-  },
+    ]},
   { path: '*', redirect: '/404', hidden: true }
 ]
 export default new Router({

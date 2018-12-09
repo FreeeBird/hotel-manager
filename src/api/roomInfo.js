@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 const URL = 'room'
 
-export function add(form) {
+export function addRoom(form) {
   return request({
     url: URL + '/add',
     method: 'post',
@@ -10,7 +10,7 @@ export function add(form) {
   })
 }
 
-export function edit(form) {
+export function editRoom(form) {
   return request({
     url: URL + '/update',
     method: 'post',
@@ -18,7 +18,7 @@ export function edit(form) {
   })
 }
 
-export function del(roomId) {
+export function delRoom(roomId) {
   return request({
     url: URL + '/delete',
     method: 'post',
@@ -28,7 +28,7 @@ export function del(roomId) {
   })
 }
 
-export function getById(roomId) {
+export function getRoomById(roomId) {
   return request({
     url: URL + '/withId',
     method: 'post',
@@ -38,7 +38,7 @@ export function getById(roomId) {
   })
 }
 
-export function getAll() {
+export function getAllRoom() {
   return request({
     url: URL + '/all',
     method: 'post'

@@ -1,6 +1,9 @@
 <template>
-  <div class="app-container">
-    <el-form ref="form1" :model="form1" label-width="120px">
+  <el-card class="app-container"  shadow="always">
+    <div slot="header">
+      <span>添加房间</span>
+    </div>
+    <el-form ref="form1" :model="form1" >
       <el-form-item
         :rules="[
           { required: true, message: '不能为空'}
@@ -62,12 +65,14 @@
         <el-button @click="onCancel">取消</el-button>
       </el-form-item>
     </el-form>
-  </div>
+  </el-card>
 </template>
 <script>
-import { getAll } from '@/api/roomType'
-import { add } from '@/api/roomInfo'
+import { getAllRoomType } from '@/api/roomType'
+import { addRoom } from '@/api/roomInfo'
+import ElCard from "element-ui/packages/card/src/main";
 export default {
+  components: {ElCard},
   data() {
     return {
       form1: {
@@ -95,7 +100,7 @@ export default {
   },
   methods: {
     fetchData() {
-      getAll().then(res => {
+      getAllRoomType().then(res => {
         this.typeList = res
       })
     },
@@ -111,7 +116,7 @@ export default {
       this.$refs.form1.validate((valid) => {
         if (valid) {
           this.loading = true
-          add(this.form1).then(response => {
+          addRoom(this.form1).then(response => {
             if (response === 1) {
               this.$message({
                 message: '提交成功！',

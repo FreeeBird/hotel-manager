@@ -110,7 +110,7 @@
 </template>
 
 <script>
-import {getAllOrder} from "../../api/order";
+  import {delOrder, getAllOrder} from "../../api/order";
 
 export default {
   name: 'Order',
@@ -146,11 +146,35 @@ export default {
       })
     },
     navigateTo(val){
-      this.$router.push(val)
+      this.$router.push('/order/'+val)
     },
     massDeletion() {
     },
-    handleDel(row){},
+    handleDel(row){
+      row.visible2 = false
+      row.loading = true
+      delOrder(row.orderId).then(response => {
+        if (response === 1) {
+          this.$message({
+            message: '删除成功！',
+            type: 'success'
+          })
+          this.list = null
+          row.loading = false
+          this.fetchData()
+        } else {
+          this.$message({
+            message: '删除失败！',
+            type: 'error'
+          })
+        }
+      }).catch(error => {
+        row.loading = false
+        console.log(error)
+      })
+      row.loading = false
+      this.fetchData()
+    },
     handleEdit(index,row){},
     toggleSelection(rows) {
       if (rows) {

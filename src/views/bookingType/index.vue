@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import { getAll, del, add, getById, update } from '@/api/orderType'
+import {getAllOrderType, delOrderType,addOrderType,getOrderTypeById,updateOrderType } from "../../api/orderType";
 
 export default {
   data() {
@@ -103,14 +103,14 @@ export default {
     fetchData() {
       this.list = null
       this.listLoading = true
-      getAll().then(res => {
+      getAllOrderType().then(res => {
         this.list = res
         this.listLoading = false
       })
     },
     add() {
       this.addBtnLoading = true
-      add(this.form).then(res => {
+      addOrderType(this.form).then(res => {
         if (res === 1) {
           this.$message({
             message: '添加成功！',
@@ -137,7 +137,7 @@ export default {
     },
     edit() {
       this.addBtnLoading = true
-      update(this.form).then(res => {
+      updateOrderType(this.form).then(res => {
         if (res === 1) {
           this.$message({
             message: '编辑成功！',
@@ -171,14 +171,14 @@ export default {
     handleEdit(index, row) {
       this.isEdit = true
       this.dialogFormVisible = true
-      getById(row.typeId).then(res => {
+      getOrderTypeById(row.typeId).then(res => {
         this.form = res
       })
     },
     handleDel(row) {
       row.visible2 = false
       row.loading = true
-      del(row.typeId).then(response => {
+      delOrderType(row.typeId).then(response => {
         if (response === 1) {
           this.$message({
             message: '删除成功！',

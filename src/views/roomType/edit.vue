@@ -1,5 +1,8 @@
 <template>
-  <div class="app-container">
+  <el-card class="app-container" shadow="always">
+    <div slot="header">
+      <span>编辑房间类型</span>
+    </div>
     <el-form ref="form1" :model="form1" label-width="120px">
       <el-form-item
         :rules="[
@@ -74,10 +77,10 @@
         <el-button @click="onCancel">取消</el-button>
       </el-form-item>
     </el-form>
-  </div>
+  </el-card>
 </template>
 <script>
-import { edit, getById } from '@/api/roomType'
+import { editRoomType, getRoomTypeById } from '@/api/roomType'
 
 export default {
   data() {
@@ -110,7 +113,7 @@ export default {
       if (this.typeId == null) {
         this.onCancel()
       }
-      getById(this.typeId).then(res => {
+      getRoomTypeById(this.typeId).then(res => {
         this.form1 = res
       })
     },
@@ -118,7 +121,7 @@ export default {
       this.$refs.form1.validate((valid) => {
         if (valid) {
           this.loading = true
-          edit(this.form1).then(response => {
+          editRoomType(this.form1).then(response => {
             if (response === 1) {
               this.$message({
                 message: '提交成功！',

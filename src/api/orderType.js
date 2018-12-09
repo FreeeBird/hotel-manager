@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 const URL = 'orderType'
 
-export function add(data) {
+export function addOrderType(data) {
   return request({
     url: URL + '/add',
     method: 'post',
@@ -10,7 +10,7 @@ export function add(data) {
   })
 }
 
-export function del(data) {
+export function delOrderType(data) {
   return request({
     url: URL + '/delete',
     method: 'post',
@@ -20,7 +20,7 @@ export function del(data) {
   })
 }
 
-export function update(data) {
+export function updateOrderType(data) {
   return request({
     url: URL + '/update',
     method: 'post',
@@ -28,7 +28,7 @@ export function update(data) {
   })
 }
 
-export function getById(data) {
+export function getOrderTypeById(data) {
   return request({
     url: URL + '/withId',
     method: 'post',
@@ -38,7 +38,7 @@ export function getById(data) {
   })
 }
 
-export function getAll() {
+export function getAllOrderType() {
   return request({
     url: URL + '/all',
     method: 'post'

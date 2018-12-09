@@ -99,7 +99,8 @@
 </template>
 
 <script>
-import { getAll, del } from '@/api/roomInfo'
+
+import { getAllRoom, delRoom} from "../../api/roomInfo";
 
 export default {
   filters: {
@@ -126,7 +127,7 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      getAll().then(response => {
+      getAllRoom().then(response => {
         this.list = response
         this.listLoading = false
       })
@@ -146,7 +147,7 @@ export default {
     handleDel(row) {
       row.visible2 = false
       row.loading = true
-      del(row.roomId).then(response => {
+      delRoom(row.roomId).then(response => {
         if (response === 1) {
           this.$message({
             message: '删除成功！',

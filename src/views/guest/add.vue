@@ -1,5 +1,8 @@
 <template>
-  <div class="app-container">
+  <el-card class="app-container" shadow="always">
+    <div slot="header">
+      <span>添加客户信息</span>
+    </div>
     <el-form ref="form1" :model="form1" :rules="rules2" label-width="120px">
       <el-form-item
         prop="username"
@@ -60,12 +63,14 @@
         <el-button @click="onCancel">取消</el-button>
       </el-form-item>
     </el-form>
-  </div>
+  </el-card>
 </template>
 <script>
   import { addUser } from "../../api/user";
+  import ElCard from "element-ui/packages/card/src/main";
 
   export default {
+    components: {ElCard},
     data() {
       var validatePass = (rule, value, callback) => {
         if (value === '') {
