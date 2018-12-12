@@ -24,13 +24,12 @@
         </span>
       </el-form-item>
       <el-form-item>
-        <el-button :loading="loading" type="primary" style="width:100%;" @click.native.prevent="handleLogin">
+        <el-button :loading="loading" type="primary" style="width:100%;" @click.native.prevent="login">
           Sign in
         </el-button>
       </el-form-item>
       <div class="tips">
-        <span style="margin-right:20px;">username: admin</span>
-        <span> password: admin</span>
+
       </div>
     </el-form>
   </div>
@@ -38,6 +37,9 @@
 
 <script>
 import { isvalidUsername } from '@/utils/validate'
+import { getByUsername } from "../../api/admin";
+import { login } from '../../api/login'
+import Cookies from 'js-cookie'
 
 export default {
   name: 'Login',
@@ -99,10 +101,32 @@ export default {
           })
         } else {
           console.log('error submit!!')
-          return false
         }
         this.loading = false
       })
+    },
+    login(){
+      this.$refs.loginForm.validate(valid => {
+        if (valid) {
+          const username = this.loginForm.username.trim()
+          this.loading = true
+          login(this.loginForm).then(res => {
+            if (res === 1){
+              Cookies.set('adminName', username)
+              this.$router.push({ path: this.redirect || '/' })
+            }
+            else{
+              this.$message.warning("用户名或密码错误！请检查后再试")
+            }
+          }).finally(() => {
+            this.loading = false
+          })
+        } else {
+          console.log('error submit!!')
+        }
+        this.loading = false
+      })
+
     }
   }
 }

@@ -1,15 +1,12 @@
 import request from '@/utils/request'
 
-const URL = 'admin'
+const URL = 'worker'
 
-export function login(username, password) {
+export function login(data) {
   return request({
     url: URL + '/login',
     method: 'post',
-    data: {
-      username,
-      password
-    }
+    data: data
   })
 }
 

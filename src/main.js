@@ -12,12 +12,14 @@ import App from './App'
 import router from './router'
 import store from './store'
 import vFilter from '@/utils/myFilter'
-
+import echarts from 'echarts'
 import '@/icons' // icon
 import '@/permission' // permission control
 
 // Vue.use(ElementUI, { locale })
 Vue.use(ElementUI)
+
+Vue.prototype.$echarts = echarts
 Vue.config.productionTip = false
 for (let key in vFilter){
   Vue.filter(key,vFilter[key])

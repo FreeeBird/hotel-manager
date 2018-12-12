@@ -58,6 +58,15 @@ export function getOrderByUserId(data) {
   })
 }
 
+export function getOrderByNameAndPhone(data) {
+  return request({
+    url: URL + '/withNameAndPhone',
+    method: 'post',
+    data: data
+  })
+}
+
+
 
 export function getOrderById(data) {
   return request({

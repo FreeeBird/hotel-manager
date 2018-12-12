@@ -1,4 +1,5 @@
-import { login, logout, getByUsername } from '@/api/admin'
+import {  logout, getByUsername } from '@/api/admin'
+import {login } from '../../api/login'
 import { getToken, removeToken } from '@/utils/auth'
 import Cookies from 'js-cookie'
 
@@ -36,10 +37,13 @@ const user = {
       return new Promise((resolve, reject) => {
         login(username, userInfo.password).then(response => {
           const data = response
-          if (data === 0) return
-          Cookies.set('Username', username)
-          commit('SET_USERNAME', username)
-          commit('SET_TOKEN', data)
+          if (data === 1){
+            Cookies.set('adminName', username)
+            commit('SET_USERNAME', username)
+            commit('SET_TOKEN', data)
+          }else {
+            this.$message.warning("用户名或密码错误！请检查后再试");
+          }
           resolve()
         }).catch(error => {
           reject(error)
