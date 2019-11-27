@@ -1,17 +1,7 @@
 import request from '@/utils/request'
 
-const URL = 'user'
+const URL = 'op/user'
 
-export function login(username, password) {
-  return request({
-    url: URL + '/login',
-    method: 'post',
-    data: {
-      username,
-      password
-    }
-  })
-}
 
 export function addUser(form) {
   return request({
@@ -23,17 +13,24 @@ export function addUser(form) {
 
 export function getAllUser() {
   return request({
-    url: URL + '/all',
+    url: URL + '',
+    method: 'post'
+  })
+}
+
+export function getUserCount() {
+  return request({
+    url: URL + '/size',
     method: 'post'
   })
 }
 
 export function getUserById(userId) {
   return request({
-    url: URL + '/withId',
+    url: URL + '/'+userId,
     method: 'post',
     data: {
-      userId
+
     }
   })
 }

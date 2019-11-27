@@ -23,7 +23,7 @@
           <div slot="header" class="clearfix">
             <span>数据展示</span>
           </div>
-          <div>系统已注册用户人数： <el-tag>30213</el-tag></div>
+          <div>系统已注册用户人数： <el-tag>{{userCount}}</el-tag></div>
           <div>系统已接受订单数量： <el-tag>40054</el-tag></div>
         </el-card>
       </el-col>
@@ -94,13 +94,15 @@
 
 <script>
   import { getOrderByNameAndPhone } from "../../api/order";
-
+  import {getAllUser ,getUserCount} from "../../api/user"
+  import {checkIn} from "../../api/checkIn"
   export default {
   name: 'Home',
   data(){
     return{
       roomNumber: null,
       dialogFormVisible: false,
+        userCount: 1203,
       form: {
         name: '',
         phone: ''
@@ -110,7 +112,7 @@
     }
   },
   created: function () {
-
+      this.getUserCount();
   },
   mounted() {
     this.rtChart()
@@ -119,6 +121,11 @@
     this.ortChart()
   },
   methods:{
+      getUserCount(){
+          getUserCount().then(response => {
+              this.userCount = response.data;
+          });
+      },
     rtChart(){
       var rtChart =  this.$echarts.init(document.getElementById('roomType'),'light')
       rtChart.setOption({
@@ -214,7 +221,7 @@
     },
     findOrder(){
       getOrderByNameAndPhone(this.form).then(res => {
-        this.order = res;
+        this.order = res.data;
       })
       if (this.order == null) {
         this.$message.warning("找不到相关预订信息！请检查")
@@ -230,6 +237,7 @@
     },
     checkIn(){
       this.dialogFormVisible = false
+        checkIn
       this.order = null
       this.isOrderShown = false
     }

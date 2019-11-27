@@ -98,15 +98,9 @@
         }
       },
       created: function(){
-        this.username = Cookies.get("adminName")
-        if (this.username == null){
-          this.$router.push('/login')
-        }
-        getByUsername(this.username).then(res => {
-          this.userInfo = res;
-          this.role = res.role;
-        })
-        Cookies.set("role",this.role)
+        this.username = Cookies.get("admin_name")
+          this.userInfo = null;
+          this.role = Cookies.get("role");
       },
       methods: {
         handleCommand(command) {
@@ -121,7 +115,7 @@
           this.$router.push(val)
         },
         handleNav(){
-          this.isCollapse = this.isCollapse == false ? true:false;
+          this.isCollapse = this.isCollapse === false ? true:false;
         },
         handleOpen(key, keyPath) {
           console.log(key, keyPath);
@@ -131,7 +125,8 @@
         },
         logout(){
           this.$message.success("注销成功")
-          Cookies.remove("username")
+          Cookies.remove("admin_name")
+            Cookies.remove("admin_id")
           Cookies.remove("role")
           this.$router.push('/login')
         }

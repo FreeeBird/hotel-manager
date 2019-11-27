@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-const URL = 'checkIn'
+const URL = 'op/checkIn'
 
 export function checkIn(data) {
   return request({

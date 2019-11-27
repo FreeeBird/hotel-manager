@@ -9,7 +9,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import '@/styles/index.scss' // global css
 
 import App from './App'
-import router from './router'
+import router from './router/router'
 import store from './store'
 import vFilter from '@/utils/myFilter'
 import echarts from 'echarts'

@@ -110,15 +110,15 @@
 </template>
 
 <script>
-  import {delOrder, getAllOrder} from "../../api/order";
+    import {delOrder, getAllOrder} from "../../api/order";
 
-export default {
+    export default {
   name: 'Order',
   data(){
     return{
       currentPage: 1,
       pagesize: 10,
-      list: null,
+      list: [{},{},{},{}],
       visible2: false,
       loading: null,
       listLoading: false,
@@ -136,8 +136,9 @@ export default {
       this.currentPage = val;
     },
     fetchData(){
-      getAllOrder().then(res => {
-        this.list = res;
+      getAllOrder().then(response => {
+          this.list = response.data;
+          this.list.reverse();
       }).catch(err => {
         this.$notify.error({
           title: '错误',

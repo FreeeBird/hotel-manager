@@ -111,8 +111,12 @@ export default {
           const username = this.loginForm.username.trim()
           this.loading = true
           login(this.loginForm).then(res => {
-            if (res === 1){
-              Cookies.set('adminName', username)
+              const data = res;
+            if (data.code === 1000){
+              Cookies.set('admin_name', username)
+                Cookies.set('session_id', data.sessionId)
+                Cookies.set('admin_id', data.userId)
+                Cookies.set('role', data.role)
               this.$router.push({ path: this.redirect || '/' })
             }
             else{

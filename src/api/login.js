@@ -1,10 +1,10 @@
 import request from '@/utils/request'
 
-const URL = 'worker'
+const URL = 'login'
 
 export function login(data) {
   return request({
-    url: URL + '/login',
+    url: URL + '/admin',
     method: 'post',
     data: data
   })

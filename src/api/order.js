@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-const URL = 'order'
+const URL = 'op/order'
 
 export function addOrder(data) {
   return request({
@@ -50,10 +50,9 @@ export function payOrder(id) {
 
 export function getOrderByUserId(data) {
   return request({
-    url: URL + '/userOrder',
+    url: URL + '/user/'+data,
     method: 'post',
     data: {
-      userId: data
     }
   })
 }
@@ -70,17 +69,17 @@ export function getOrderByNameAndPhone(data) {
 
 export function getOrderById(data) {
   return request({
-    url: URL + '/withId',
+    url: URL + '/'+data,
     method: 'post',
     data: {
-      orderId: data
+
     }
   })
 }
 
 export function getAllOrder() {
   return request({
-    url: URL + '/all',
+    url: URL ,
     method: 'post',
   })
 }
