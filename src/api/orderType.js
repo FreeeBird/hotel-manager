@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-const URL = 'orderType'
+const URL = 'op/order-type'
 
 export function addOrderType(data) {
   return request({
@@ -10,12 +10,12 @@ export function addOrderType(data) {
   })
 }
 
-export function delOrderType(data) {
+export function delOrderType(id) {
   return request({
-    url: URL + '/delete',
+    url: URL + '/delete/'+id,
     method: 'post',
     data: {
-      typeId: data
+
     }
   })
 }
@@ -28,19 +28,19 @@ export function updateOrderType(data) {
   })
 }
 
-export function getOrderTypeById(data) {
+export function getOrderTypeById(id) {
   return request({
-    url: URL + '/withId',
+    url: URL + '/'+id,
     method: 'post',
     data: {
-      typeId: data
+
     }
   })
 }
 
 export function getAllOrderType() {
   return request({
-    url: URL + '/all',
+    url: URL,
     method: 'post'
   })
 }

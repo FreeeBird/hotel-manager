@@ -1,12 +1,14 @@
-# vue-admin-template
+# ho-hotel manager-web
 
-
+```
+* 部分功能没完成
+```
 
 ## Build Setup
 
 ```bash
 # Clone project
-git clone https://github.com/PanJiaChen/vue-admin-template.git
+git clone https://github.com/FreeeBird/hotel-manager
 
 # Install dependencies
 npm install
@@ -24,34 +26,14 @@ npm run build
 npm run build --report
 ```
 
-## Demo
+## ScreenShots
 
-![demo](https://github.com/PanJiaChen/PanJiaChen.github.io/blob/master/images/demo.gif)
+![demo](/screenshots/scs%20(1).png)
+![demo](/screenshots/scs%20(2).png)
+![demo](/screenshots/scs%20(3).png)
+![demo](/screenshots/scs%20(4).png)
+![demo](/screenshots/scs%20(5).png)
 
-### Element-Ui 使用 cdn 教程
-
-首先找到 `index.html` ([根目录下](https://github.com/PanJiaChen/vue-admin-template/blob/element-ui-cdn/index.html))
-
-引入 Element 的 css 和 js ，并且引入 vue 。因为 Element-Ui 是依赖 vue 的，所以必须在它之前引入 vue 。
-
-之后找到 [webpack.base.conf.js](https://github.com/PanJiaChen/vue-admin-template/blob/element-ui-cdn/build/webpack.base.conf.js) 加入 `externals` 让 webpack 不打包 vue 和 element
-
-```
-externals: {
-  vue: 'Vue',
-  'element-ui':'ELEMENT'
-}
-```
-
-之后还有一个小细节是如果你用了全局对象方式引入 vue，就不需要 手动 `Vue.use(Vuex）` ，它会自动挂载，具体见 [issue](https://github.com/vuejs/vuex/issues/731)
-
-最终你可以使用 `npm run build --report` 查看效果
-如图：
-![demo](https://panjiachen.github.io/images/element-cdn.png)
-
-**[具体代码](https://github.com/PanJiaChen/vue-admin-template/commit/746aff560932704ae821f82f10b8b2a9681d5177)**
-
-**[对应分支](https://github.com/PanJiaChen/vue-admin-template/tree/element-ui-cdn)**
 
 ## Browsers support
 
@@ -61,4 +43,4 @@ Modern browsers and Internet Explorer 10+.
 | --------- | --------- | --------- | --------- |
 | IE10, IE11, Edge| last 2 versions| last 2 versions| last 2 versions
 
-## License
+

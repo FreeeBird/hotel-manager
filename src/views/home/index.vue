@@ -24,7 +24,7 @@
             <span>数据展示</span>
           </div>
           <div>系统已注册用户人数： <el-tag>{{userCount}}</el-tag></div>
-          <div>系统已接受订单数量： <el-tag>40054</el-tag></div>
+          <div>系统已接受订单数量： <el-tag>{{orderCount}}</el-tag></div>
         </el-card>
       </el-col>
     </el-row>
@@ -93,7 +93,7 @@
 </template>
 
 <script>
-  import { getOrderByNameAndPhone } from "../../api/order";
+    import {getOrderByNameAndPhone, getOrderCount} from "../../api/order";
   import {getAllUser ,getUserCount} from "../../api/user"
   import {checkIn} from "../../api/checkIn"
   export default {
@@ -103,6 +103,7 @@
       roomNumber: null,
       dialogFormVisible: false,
         userCount: 1203,
+        orderCount: 12032,
       form: {
         name: '',
         phone: ''
@@ -112,7 +113,7 @@
     }
   },
   created: function () {
-      this.getUserCount();
+      this.getCount();
   },
   mounted() {
     this.rtChart()
@@ -121,9 +122,12 @@
     this.ortChart()
   },
   methods:{
-      getUserCount(){
+      getCount(){
           getUserCount().then(response => {
               this.userCount = response.data;
+          });
+          getOrderCount().then(res => {
+              this.orderCount = res.data;
           });
       },
     rtChart(){

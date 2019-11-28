@@ -114,20 +114,6 @@ export const constantRouterMap = [
         name: 'BookingType',
         component: () => import('@/views/bookingType/index'),
         meta: { title: '预订方式管理', icon: 'tree' }
-      },
-      {
-        path: 'add',
-        name: 'AddBookingType',
-        hidden: true,
-        component: () => import('@/views/bookingType/add'),
-        meta: { title: '添加预订方式' }
-      },
-      {
-        path: 'edit',
-        name: 'EditBookingType',
-        hidden: true,
-        component: () => import('@/views/bookingType/edit'),
-        meta: { title: '编辑预订方式', }
       }
     ]},
   {path: '/order', component: Container, meta: { title: '订单管理', icon: 'tree' ,requireAuth: true }, children: [

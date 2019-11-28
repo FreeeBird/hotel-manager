@@ -45,7 +45,8 @@
           @change="calcDays"
           range-separator=" 至 "
           start-placeholder="开始日期"
-          end-placeholder="结束日期">
+          end-placeholder="结束日期"
+          :picker-options="expireTimeOption">
         </el-date-picker>
       </el-form-item>
       <el-form-item
@@ -77,7 +78,7 @@
         label="订单费用"
         prop="orderCost"
       >
-       {{ '￥' + form1.orderCost }}
+       {{ '￥' + form1.orderCost.toFixed(2) }}
       </el-form-item>
       <el-form-item>
         <el-button :loading="loading" type="primary" @click="onSubmit()">提交</el-button>
@@ -101,16 +102,21 @@
             orderType: null,
             roomTypeId: null,
             userId:0,
-            name: null,
-            phone:null,
+            name: '',
+            phone:'',
             orderDate: null,
             orderDays: 1,
             orderCost: 0
           },
           orderDateRange:null,
           loading: false,
-          roomTypeList: null,
-          orderTypeList: null,
+          roomTypeList: [],
+          orderTypeList: [],
+            expireTimeOption:{
+              disabledDate: time =>{
+                  return time.getTime() < Date.now()-24*60*60*1000;
+              },
+            },
         }
       },
       created: function() {
@@ -119,10 +125,10 @@
       methods: {
         fetchData() {
           getAllOrderType().then(res => {
-            this.orderTypeList = res
+            this.orderTypeList = res.data;
           })
           getAllRoomType().then(res => {
-            this.roomTypeList = res;
+            this.roomTypeList = res.data;
           })
         },
         idToType(rtId,otId) {
@@ -144,21 +150,23 @@
         },
         calcDays(){
           this.form1.orderDate = this.orderDateRange[0]
-          this.form1.orderDays = this.orderDateRange[1].getDate() - this.orderDateRange[0].getDate()
+            var days = this.orderDateRange[1].getTime() - this.orderDateRange[0].getTime();
+          this.form1.orderDays = days / (24*60*60*1000);
         },
         onSubmit() {
           this.$refs.form1.validate((valid) => {
             if (valid) {
               this.loading = true
               addOrder(this.form1).then(response => {
-                if (response === 1) {
+                  const res = response;
+                if(res.code === 1000){
                   this.$message({
                     message: '提交成功！',
                     type: 'success'
                   })
                   this.loading = false
                   setTimeout(this.onCancel(), 20000)
-                } else {
+                }else {
                   this.showError()
                   this.loading = false
                 }

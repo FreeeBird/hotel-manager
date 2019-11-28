@@ -1,17 +1,7 @@
 import request from '@/utils/request'
 
-const URL = 'operator'
+const URL = 'admin/operator'
 
-export function login(username, password) {
-  return request({
-    url: URL + '/login',
-    method: 'post',
-    data: {
-      username,
-      password
-    }
-  })
-}
 
 export function add(form) {
   return request({
@@ -23,17 +13,17 @@ export function add(form) {
 
 export function getAll() {
   return request({
-    url: URL + '/all',
+    url: URL + '',
     method: 'post'
   })
 }
 
 export function getById(workerId) {
   return request({
-    url: URL + '/withId',
+    url: URL + '/' + workerId,
     method: 'post',
     data: {
-      workerId
+
     }
   })
 }
@@ -48,10 +38,10 @@ export function update(data) {
 
 export function del(workerId) {
   return request({
-    url: URL + '/delete',
+    url: URL + '/' + workerId,
     method: 'post',
     data: {
-      workerId
+
     }
   })
 }

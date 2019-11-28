@@ -128,8 +128,8 @@ export default {
     fetchData() {
       this.listLoading = true
       getAllRoom().then(response => {
-        this.list = response
-        this.listLoading = false
+        this.list = response.data;
+        this.listLoading = false;
       })
     },
     navigateTo(val) {
@@ -148,12 +148,13 @@ export default {
       row.visible2 = false
       row.loading = true
       delRoom(row.roomId).then(response => {
-        if (response === 1) {
+          const res = response;
+        if (res.code === 1000) {
           this.$message({
             message: '删除成功！',
             type: 'success'
           })
-          this.list = null
+          this.list.push();
           row.loading = false
           this.fetchData()
         } else {
@@ -167,7 +168,6 @@ export default {
         console.log(error)
       })
       row.loading = false
-      this.fetchData()
     },
     toggleSelection(rows) {
       if (rows) {

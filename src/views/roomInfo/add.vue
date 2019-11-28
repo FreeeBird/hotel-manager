@@ -101,14 +101,16 @@ export default {
   methods: {
     fetchData() {
       getAllRoomType().then(res => {
-        this.typeList = res
+        this.typeList = res.data;
       })
     },
     idToType(val) {
       if (val == null) return
       this.typeList.forEach(type => {
         if (val === type.typeId) {
-          this.form1.roomType = type.roomType
+          this.form1.roomType = type.roomType;
+            this.form1.roomPrice = type.price;
+          this.form1.roomDiscount = type.discount;
         }
       })
     },
@@ -117,16 +119,17 @@ export default {
         if (valid) {
           this.loading = true
           addRoom(this.form1).then(response => {
-            if (response === 1) {
+              const res = response;
+            if (res.code === 1000) {
               this.$message({
                 message: '提交成功！',
                 type: 'success'
               })
-              this.loading = false
+              this.loading = false;
               setTimeout(this.onCancel(), 20000)
             } else {
-              this.showError()
-              this.loading = false
+              this.showError(res.message);
+              this.loading = false;
             }
           })
         } else {
@@ -135,9 +138,9 @@ export default {
         }
       })
     },
-    showError() {
+    showError(msg) {
       this.$message({
-        message: '提交失败！',
+        message: msg,
         type: 'error'
       })
     },

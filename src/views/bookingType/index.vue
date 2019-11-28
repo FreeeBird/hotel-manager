@@ -104,14 +104,15 @@ export default {
       this.list = null
       this.listLoading = true
       getAllOrderType().then(res => {
-        this.list = res
+        this.list = res.data;
         this.listLoading = false
       })
     },
     add() {
       this.addBtnLoading = true
-      addOrderType(this.form).then(res => {
-        if (res === 1) {
+      addOrderType(this.form).then(response => {
+          const res = response;
+        if (res.code === 1000) {
           this.$message({
             message: '添加成功！',
             type: 'success'
@@ -119,7 +120,7 @@ export default {
           this.fetchData()
         } else {
           this.$message({
-            message: '添加失败！',
+            message: res.message,
             type: 'error'
           })
         }
@@ -137,8 +138,9 @@ export default {
     },
     edit() {
       this.addBtnLoading = true
-      updateOrderType(this.form).then(res => {
-        if (res === 1) {
+      updateOrderType(this.form).then(response => {
+          const res = response;
+        if (res.code === 1000) {
           this.$message({
             message: '编辑成功！',
             type: 'success'
@@ -146,7 +148,7 @@ export default {
           this.fetchData()
         } else {
           this.$message({
-            message: '编辑失败！',
+            message: res.message,
             type: 'error'
           })
         }
@@ -172,14 +174,15 @@ export default {
       this.isEdit = true
       this.dialogFormVisible = true
       getOrderTypeById(row.typeId).then(res => {
-        this.form = res
+        this.form = res.data;
       })
     },
     handleDel(row) {
       row.visible2 = false
       row.loading = true
       delOrderType(row.typeId).then(response => {
-        if (response === 1) {
+          const res = response;
+        if (res.code === 1000) {
           this.$message({
             message: '删除成功！',
             type: 'success'
@@ -187,7 +190,7 @@ export default {
           this.fetchData()
         } else {
           this.$message({
-            message: '删除失败！',
+            message: res.message,
             type: 'error'
           })
         }

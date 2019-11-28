@@ -83,3 +83,10 @@ export function getAllOrder() {
     method: 'post',
   })
 }
+
+export function getOrderCount() {
+  return request({
+    url: URL + '/count',
+    method: 'post',
+  })
+}

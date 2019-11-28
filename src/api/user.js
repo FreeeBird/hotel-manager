@@ -20,7 +20,7 @@ export function getAllUser() {
 
 export function getUserCount() {
   return request({
-    url: URL + '/size',
+    url: URL + '/count',
     method: 'post'
   })
 }
@@ -45,10 +45,9 @@ export function updateUser(data) {
 
 export function delUser(id) {
   return request({
-    url: URL + '/delete',
+    url: URL + '/delete/'+id,
     method: 'post',
     data: {
-      userId: id
     }
   })
 }

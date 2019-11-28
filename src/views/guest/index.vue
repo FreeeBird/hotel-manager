@@ -125,7 +125,7 @@
         },
         fetchData(){
           getAllUser().then(res => {
-            this.list = res;
+            this.list = res.data;
           }).catch(err => {
             this.$notify.error({
               title: '错误',
@@ -142,7 +142,8 @@
           row.visible2 = false
           row.loading = true
           delUser(row.userId).then(response => {
-            if (response === 1) {
+              const res = response;
+            if (res.code === 1000) {
               this.list = null
               this.$message({
                 message: '删除成功！',

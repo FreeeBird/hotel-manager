@@ -155,7 +155,8 @@
       row.visible2 = false
       row.loading = true
       delOrder(row.orderId).then(response => {
-        if (response === 1) {
+          const res = response;
+        if (res.code === 1000) {
           this.$message({
             message: '删除成功！',
             type: 'success'

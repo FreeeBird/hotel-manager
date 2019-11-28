@@ -25,7 +25,7 @@
       </el-form-item>
       <el-form-item>
         <el-button :loading="loading" type="primary" style="width:100%;" @click.native.prevent="login">
-          Sign in
+          登 录
         </el-button>
       </el-form-item>
       <div class="tips">
@@ -110,13 +110,13 @@ export default {
         if (valid) {
           const username = this.loginForm.username.trim()
           this.loading = true
-          login(this.loginForm).then(res => {
-              const data = res;
-            if (data.code === 1000){
+          login(this.loginForm).then(response => {
+              const res = response;
+            if (res.code === 1000){
               Cookies.set('admin_name', username)
-                Cookies.set('session_id', data.sessionId)
-                Cookies.set('admin_id', data.userId)
-                Cookies.set('role', data.role)
+                Cookies.set('session_id', res.data.sessionId)
+                Cookies.set('admin_id', res.data.userId)
+                Cookies.set('role', res.data.role)
               this.$router.push({ path: this.redirect || '/' })
             }
             else{

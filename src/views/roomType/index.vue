@@ -124,8 +124,9 @@ export default {
     fetchData() {
       this.listLoading = true
       getAllRoomType().then(response => {
-        this.list = response
-        this.listLoading = false
+        this.list = response.data;
+        this.list.reverse();
+        this.listLoading = false;
       })
     },
     navigateTo(val) {
@@ -150,14 +151,17 @@ export default {
       })
     },
     handleDel(row) {
-      row.visible2 = false
-      row.loading = true
+      row.visible2 = false;
+      row.loading = true;
       delRoomType(row.typeId).then(response => {
-        if (response === 1) {
+          const res =response;
+        if (res.code === 1000) {
           this.$message({
             message: '删除成功！',
             type: 'success'
-          })
+          });
+            this.list.push();
+            this.fetchData()
         } else {
           this.$message({
             message: '删除失败！',
@@ -165,9 +169,9 @@ export default {
           })
         }
       })
-      row.loading = false
-      this.list = null
-      this.fetchData()
+
+      row.loading = false;
+
     },
     handleSelectionChange(val) {
       this.multipleSelection = val

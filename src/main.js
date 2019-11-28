@@ -14,7 +14,6 @@ import store from './store'
 import vFilter from '@/utils/myFilter'
 import echarts from 'echarts'
 import '@/icons' // icon
-import '@/permission' // permission control
 
 // Vue.use(ElementUI, { locale })
 Vue.use(ElementUI)

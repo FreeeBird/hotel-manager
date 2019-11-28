@@ -114,7 +114,8 @@ export default {
         if (valid) {
           this.loading = true
           add(this.form1).then(response => {
-            if (response === 1) {
+              const res =response;
+            if (res.code === 1000) {
               this.$message({
                 message: '提交成功！',
                 type: 'success'
@@ -122,13 +123,12 @@ export default {
               this.loading = false
               setTimeout(this.onCancel(), 20000)
             } else {
-              this.showError()
+              this.showError(res.message)
               this.loading = false
             }
           }).catch(error => {
             this.loading = false
-            this.showError()
-            console.log(error)
+            this.showError(error)
           })
         } else {
           this.loading = false
@@ -136,9 +136,9 @@ export default {
         }
       })
     },
-    showError() {
+    showError(msg) {
       this.$message({
-        message: '提交失败！',
+        message: msg,
         type: 'error'
       })
     },

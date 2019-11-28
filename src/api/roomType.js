@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-const URL = 'roomType'
+const URL = 'op/room-type'
 
 export function addRoomType(form) {
   return request({
@@ -20,27 +20,25 @@ export function editRoomType(form) {
 
 export function delRoomType(typeId) {
   return request({
-    url: URL + '/delete',
+    url: URL + '/delete/'+typeId,
     method: 'post',
     data: {
-      typeId
     }
   })
 }
 
 export function getRoomTypeById(typeId) {
   return request({
-    url: URL + '/withId',
+    url: URL + '/'+typeId,
     method: 'post',
     data: {
-      typeId
     }
   })
 }
 
 export function getAllRoomType() {
   return request({
-    url: URL + '/all',
+    url: URL,
     method: 'post'
   })
 }

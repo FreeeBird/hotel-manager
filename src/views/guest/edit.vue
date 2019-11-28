@@ -105,7 +105,8 @@
           if (valid) {
             this.loading = true
             updateUser(this.form1).then(response => {
-              if (response === 1) {
+                const res = response;
+              if (res.code === 1000) {
                 this.$message({
                   message: '提交成功！',
                   type: 'success'

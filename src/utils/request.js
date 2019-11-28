@@ -24,23 +24,16 @@ service.interceptors.response.use(
       Message({
         message: res.message,
         type: 'error',
-        duration: 5 * 1000
+        duration: 2 * 1000
       })
     }
-    if(res.code===1001){
+    if(res.code===1100){
       Cookie.remove("admin_id")
       Cookie.remove("admin_name")
       Cookie.remove("session_id")
       Cookie.remove("role")
-      router.back();
-      router.forward();
-    }
-    if(res.code===1002){
-      Message({
-        message: res.message,
-        type: 'error',
-        duration: 5 * 1000
-      })
+      router.push('/login');
+
     }
     return res;
   },
@@ -49,9 +42,9 @@ service.interceptors.response.use(
     Message({
       message: error.message,
       type: 'error',
-      duration: 5 * 1000
+      duration: 2 * 1000
     })
-    router.push('/404');
+    router.push('/');
     return Promise.reject(error)
   }
 )

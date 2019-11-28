@@ -88,8 +88,8 @@ export default {
     fetchData() {
       this.listLoading = true
       getAll().then(response => {
-        this.list = response
-        this.listLoading = false
+        this.list = response.data;
+        this.listLoading = false;
       })
     },
     navigateTo(val) {
@@ -108,12 +108,14 @@ export default {
       row.visible2 = false
       row.loading = true
       del(row.workerId).then(response => {
-        if (response === 1) {
+          const res =response;
+        if (res.code===1000) {
           this.list = null
           this.$message({
             message: '删除成功！',
             type: 'success'
           })
+            this.fetchData()
         } else {
           this.$message({
             message: '删除失败！',
@@ -122,7 +124,6 @@ export default {
         }
       })
       row.loading = false
-      this.fetchData()
     },
     toggleSelection(rows) {
       if (rows) {
